@@ -52,3 +52,8 @@ Run project using network parametres, for example:
 $ docker run —name smart-space-tracking-camera -d —privileged -v /dev:/dev -e SMART_SPACE_TRACKING_REDIS_PORT_6379_TCP_ADDR="XXX.XXX.XXX.XXX" smart-space-tracking-camera
 ```
 - XXX.XXX.XXX.XXX is the main server address
+
+
+Hardware requirements
+- Raspberry Pi 
+- Intel RealSense D435
