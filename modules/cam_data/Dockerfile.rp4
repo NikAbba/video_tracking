@@ -6,7 +6,7 @@ ENV IS_RP=1
 
 WORKDIR /server
 
-RUN apt update && apt install -y libusb-1.0-0-dev libturbojpeg0 tar&& rm -rf /var/lib/apt/lists/*
+RUN apt update && apt install -y libusb-1.0-0-dev libturbojpeg0 tar xz-utils && rm -rf /var/lib/apt/lists/*
 COPY ./modules/cam_data/ .
 #COPY . .
 RUN tar -xf ./"pylibrs.tar.xz" && rm "pylibrs.tar.xz"
