@@ -11,10 +11,10 @@ pipeline = rs.pipeline()
 config = rs.config()
 config.enable_stream(rs.stream.color, 1280, 720, rs.format.bgr8, 30)
 config.enable_stream(rs.stream.depth, 1280, 720, rs.format.z16, 30)
-config.enable_device_from_file('test.bag')
+#config.enable_device_from_file('test.bag')
 align = rs.align(rs.stream.color)
 profile = pipeline.start(config)
-#depth_scale = profile.get_device().first_depth_sensor().get_depth_scale()
+depth_scale = profile.get_device().first_depth_sensor().get_depth_scale()
 
 # Redis
 r = redis.Redis(host=os.getenv('SMART_SPACE_TRACKING_REDIS_PORT_6379_TCP_ADDR'), port=6379, db=0)
@@ -90,8 +90,8 @@ def send_data(msg):
             distance = np.zeros(points.shape[0], dtype=np.float16)
             depth_map = DM[timestamp]
 
-            #for ind in range(distance.size):
-                #distance[ind] = np.mean(depth_map[points[ind][:, 0], points[ind][:, 1]]) * depth_scale
+            for ind in range(distance.size):
+                distance[ind] = np.mean(depth_map[points[ind][:, 0], points[ind][:, 1]]) * depth_scale
 
             DM.pop(timestamp)
             pipe.set('distance_' + timestamp, distance.tobytes())
