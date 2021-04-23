@@ -27,6 +27,9 @@ rp = int(os.getenv('IS_RP'))
 
 last_time = 0
 DM = {}
+#test
+fps=0
+data_size=0
 
 
 def compress_rgb(image):
@@ -101,7 +104,19 @@ def send_data(msg):
         pipe.publish('pipeline', json.dumps(dict(module='camera', ans='df', ts=timestamp)))
 
     pipe.execute()
+    fps = 1/(time.time()-last_time)
+    data_size  = data_size+len(color)+len(depth)
+    data_rate=data_size/(time.time()-last_time)
+    testFPS()
+    testDataRate()
 
+def testFPS
+    print('FPS =    '.format(fps))
+    #toRedit(fps, 'FPS',pipe)
+
+def testDataRate
+    print('Data rate =  '.format(data_rate)
+    #toRedit(data_rate, 'DATA_RATE',pipe)
 
 if __name__ == '__main__':
     for i in range(60):
